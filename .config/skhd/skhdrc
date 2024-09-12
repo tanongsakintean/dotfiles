@@ -1,0 +1,152 @@
+
+#!/usr/bin/env sh
+:: default : yabai -m config active_window_opacity 1; yabai -m config normal_window_opacity 1;
+
+
+# Focus
+shift + alt - j : yabai -m window --focus south
+shift + alt - k : yabai -m window --focus north
+shift + alt - h : yabai -m window --focus west
+shift + alt - l : yabai -m window --focus east
+shift + alt - m : yabai -m window --focus stack.prev || yabai -m window --focus stack.next || yabai -m window --focus prev || yabai -m window --focus last
+shift + alt - n : yabai -m window --focus stack.next || yabai -m window --focus next || yabai -m window --focus first
+
+
+# ctrl + alt - home : yabai -m window --focus north
+# ctrl + alt - end : yabai -m window --focus south
+# ctrl + alt - delete : yabai -m window --focus west
+# ctrl + alt - pagedown : yabai -m window --focus east
+
+alt + shift - return : osascript -e 'tell application "iTerm" to create window with default profile'
+
+# Move to monitor
+shift + ctrl + alt - left : yabai -m window --display prev; yabai -m display --focus prev
+shift + ctrl + alt - right : yabai -m window --display next; yabai -m display --focus next
+
+# Move to space
+shift + ctrl - left : yabai -m window --space prev; yabai -m space --focus prev
+shift + ctrl - right : yabai -m window --space next; yabai -m space --focus next
+
+shift + ctrl + alt - 1 : yabai -m window --display 1;
+shift + ctrl + alt - 2 : yabai -m window --display 2;
+shift + ctrl + alt - 3 : yabai -m window --display 3;
+
+# Swap windows
+ctrl + alt + cmd - h : yabai -m window --swap west;
+ctrl + alt + cmd - l : yabai -m window --swap east;
+ctrl + alt + cmd - j : yabai -m window --swap south;
+ctrl + alt + cmd - k : yabai -m window --swap north;
+# Warp windows
+shift + alt + cmd - h : yabai -m window --warp west;
+shift + alt + cmd - l : yabai -m window --warp east;
+shift + alt + cmd - j : yabai -m window --warp south;
+shift + alt + cmd - k : yabai -m window --warp north;
+
+# Toggle float
+shift + alt - t : yabai -m window --toggle float;
+shift + alt - s : yabai -m window --toggle topmost;
+# Toggle split
+shift + alt - e : yabai -m window --toggle split;
+# Toggle fullscren
+shift + alt - f : yabai -m window --toggle zoom-fullscreen;
+# Toggle full-parent
+shift + alt - d : yabai -m window --toggle zoom-parent;
+# Toggle pip
+shift + alt - p : yabai -m window --toggle float; yabai -m window --toggle pip; yabai -m window --toggle topmost; 
+
+# Switch layout to float on space
+shift + alt + ctrl - f : yabai -m space --layout float
+# Switch layout to bsp on space
+shift + alt + ctrl - b : yabai -m space --layout bsp
+# Switch layout to stack on space
+shift + alt + ctrl - s : yabai -m space --layout stack
+
+# rotate tree
+ctrl + alt + cmd - r : yabai -m space --rotate 90
+
+# mirror tree y-axis
+ctrl + alt + cmd - y : yabai -m space --mirror y-axis
+
+# mirror tree x-axis
+ctrl + alt + cmd - x : yabai -m space --mirror x-axis
+
+# fast focus monitor
+ctrl + cmd - left : yabai -m display --focus prev
+ctrl + cmd - right : yabai -m display --focus next
+
+# create desktop, move window and follow focus
+ctrl + cmd - m : sh /Users/damien/.dotfiles/bin/usr/yabai/move_to_empty_space
+
+# Remove empty spaces
+ctrl + cmd - delete: sh /Users/damien/.dotfiles/bin/usr/yabai/destroy_empty_spaces
+
+# set insertion point in focused container
+ctrl + alt - left : yabai -m window --insert west
+ctrl + alt - down : yabai -m window --insert south
+ctrl + alt - up : yabai -m window --insert north
+ctrl + alt - right : yabai -m window --insert east
+
+# Increase padding (-)
+ctrl + alt + cmd - 0x1B : yabai -m space --padding rel:20:20:20:20
+# Decrease gap (-)
+ctrl + alt + shift - 0x1B : yabai -m space --gap rel:10
+
+
+# Decrease padding (+)
+ctrl + alt + cmd - 0x18 : yabai -m space --padding rel:-20:-20:-20:-20
+# Increase gap (+)
+ctrl + alt + shift - 0x18 : yabai -m space --gap rel:-10
+
+# "Focus" mode
+ctrl + alt + cmd - 0 : yabai -m space --padding abs:24:20:20:20
+ctrl + alt + cmd - 9 : yabai -m space --padding abs:50:50:50:50
+ctrl + alt + cmd - 8 : yabai -m space --padding abs:150:150:150:150
+ctrl + alt + cmd - 7 : yabai -m space --padding abs:200:200:200:200
+ctrl + alt + cmd - 6 : yabai -m space --padding abs:250:250:250:250
+
+# Toggle offset
+ctrl + alt + cmd - 0x33 : yabai -m space --toggle padding; yabai -m space --toggle gap;
+
+# Remove border when doing a screenshot
+# cmd + shift - 4 : yabai -m window --toggle border
+
+alt - escape : yabai -m window --toggle border
+
+# defines a new mode 'resize' with an on_enter command, that captures keypresses
+:: resize @ : yabai -m config active_window_opacity 1; yabai -m config normal_window_opacity 0.9;
+
+# from 'default' mode, activate mode 'resize'
+# (this is the key combination you want to use to enter resize mode)
+ctrl - escape ; resize 
+alt + ctrl - 0x32 ; resize
+
+# from 'resize' mode, activate mode 'default'
+# (this is the keypress required to leave resize mode)
+resize < escape ; default
+resize < 0x32 ; default
+
+# equalize windows
+resize < ctrl - 0 : yabai -m space --balance
+
+# increase window size
+resize < ctrl - left : yabai -m window --resize left:-25:0
+resize < ctrl - down : yabai -m window --resize bottom:0:25
+resize < ctrl - up : yabai -m window --resize top:0:-25
+resize < ctrl - right : yabai -m window --resize right:25:0
+
+
+# decrease window size
+resize < alt - right : yabai -m window --resize left:25:0
+resize < alt - up : yabai -m window --resize bottom:0:-25
+resize < alt - down : yabai -m window --resize top:0:25
+resize < alt - left : yabai -m window --resize right:-25:0
+
+# move window
+resize < cmd - left : yabai -m window --move rel:-25:0
+resize < cmd - down : yabai -m window -move rel:0:25
+resize < cmd - up : yabai -m window --move rel:0:-25
+resize < cmd - right : yabai -m window --move rel:25:0
+
+# toggle sticky(+float), topmost, border and picture-in-picture
+# ctrl + alt - p : yabai -m window --toggle pip
+
