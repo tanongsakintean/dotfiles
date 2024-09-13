@@ -16,6 +16,9 @@ source $ZSH/oh-my-zsh.sh
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
+#the fuck
+$(thefuck --alias)
+
 #tmux
 alias ta='tmux attach-session -t'
 alias tka='tmux kill-server'
@@ -122,3 +125,5 @@ bindkey '^u' autosuggest-toggle
 bindkey '^L' vi-forward-word
 bindkey '^k' up-line-or-search
 bindkey '^j' down-line-or-search
+
+eval $(thefuck --alias)
