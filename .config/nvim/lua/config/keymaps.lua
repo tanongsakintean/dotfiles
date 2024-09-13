@@ -39,6 +39,8 @@ local set_keymap = vim.api.nvim_set_keymap
 vim.api.nvim_set_keymap("i", "jk", "<Esc>", { noremap = true, silent = true })
 -- exit page
 keymap.set("n", "q", ":q<Return>", opts)
+-- clear search highlights 
+keymap.set("n", "<leader>nh", ":nohl<Return>", opts)
 
 -- save this page
 keymap.set("n", "<leader>w", ":w<Return>", opts)
