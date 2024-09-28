@@ -16,8 +16,8 @@ source $ZSH/oh-my-zsh.sh
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
-#the fuck
-$(thefuck --alias)
+#docker 
+alias 'start docker'="open /Applications/Docker.app/Contents/MacOS/Docker\ Desktop.app"
 
 #tmux
 alias ta='tmux attach-session -t'
